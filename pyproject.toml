@@ -1,0 +1,35 @@
+[tool.poetry]
+name = "wherenfts"
+version = "0.1.0"
+description = ""
+authors = ["Alisher A. Khassanov <a.khssnv@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10,<3.11"
+web3 = { version = "6.0.0b3", allow-prereleases = true }
+loguru = "^0.6.0"
+websockets = "^10.3,<11"
+aiohttp = "^3.8.1"
+panoramix-decompiler = "^0.4"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+ipython = "^8.4.0"
+black = "^22.6.0"
+flake8 = "^4.0.1"
+isort = "^5.10.1"
+pylint = "^2.14.4"
+pre-commit = "^2.19.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 88
+target-version = ["py39"]
+experimental_string_processing = true
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
