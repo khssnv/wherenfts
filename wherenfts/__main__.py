@@ -12,7 +12,7 @@ from wherenfts.ethereum.types import Transaction
 from wherenfts.filters import (
     ContractAddressPrinter,
     ContractDeployment,
-    DecompilingERC721Filter,
+    StandardInterfaceDetection,
 )
 from wherenfts.filters.base import Filter
 from wherenfts.misc.cli import get_cli_args
@@ -55,11 +55,13 @@ async def main():
     eth: AsyncEth = w3.eth
 
     # Create filtering chain
-    logger.info("prepating filters data, it may take a minute")
     contract_deployment_filter = ContractDeployment()
-    decompiling_erc721_filter = DecompilingERC721Filter(eth, MAX_RECURSION)
+    standard_interface_detection = StandardInterfaceDetection(
+        eth,
+        StandardInterfaceDetection.get_erc165_identifier_by_standard("ERC721"),
+    )
     contract_address_printer_filter = ContractAddressPrinter()
-    contract_deployment_filter.set_next(decompiling_erc721_filter).set_next(
+    contract_deployment_filter.set_next(standard_interface_detection).set_next(
         contract_address_printer_filter
     )
     filters = contract_deployment_filter
